@@ -15,19 +15,10 @@ commit_message = "自动提交更新"
 
 def git_push():
     try:
-        # 进入仓库目录
-        os.chdir(repo_path)
-
-        # 添加所有更改
-        subprocess.run(["git", "add", "."], check=True)
-
-        # 提交更改
-        subprocess.run(["git", "commit", "-m", commit_message], check=True)
-
-        # 推送到 GitHub
-        subprocess.run(["git", "push", "origin", "main"], check=True)
-
-        print([['1',]])
+        with open(os.devnull, "w") as devnull:
+            subprocess.run(["git", "add", "."], stdout=devnull, stderr=devnull, check=True)
+            subprocess.run(["git", "commit", "-m", commit_message], stdout=devnull, stderr=devnull, check=True)
+            subprocess.run(["git", "push", "origin", "main"], stdout=devnull, stderr=devnull, check=True)
 
     except subprocess.CalledProcessError as e:
         print()
