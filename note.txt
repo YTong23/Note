@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 你好wxc
 
 wojude1anidojeiwadwe
 
 我觉得第一题选择A你怎么说
 回答：
+=======
+abc
+>>>>>>> bba73e7 (自动提交更新)
+xxxxxxxxx+
