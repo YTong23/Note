@@ -1,3 +1,50 @@
-你好
-你好
-你好
+在多元变量分析中，主成分分析（英语：Principal components analysis，缩写：PCA）是一种统计分析、简化数据集的方法。它利用正交变换来对一系列可能相关的变量的观测值进行线性变换，从而投影为一系列线性不相关变量的值，这些不相关变量称为主成分（Principal Components）。具体地，主成分可以看做一个线性方程，其包含一系列线性系数来指示投影方向。PCA对原始数据的正则化或预处理敏感（相对缩放）。
+
+基本思想：
+
+将坐标轴中心移到数据的中心，然后旋转坐标轴，使得数据在C1轴上的方差最大，即全部n个数据个体在该方向上的投影最为分散。意味着更多的信息被保留下来。C1成为第一主成分。
+C2第二主成分：找一个C2，使得C2与C1的协方差（相关系数）为0，以免与C1信息重叠，并且使数据在该方向的方差尽量最大。
+以此类推，找到第三主成分，第四主成分……第p个主成分。p个随机变量可以有p个主成分[1]。
+主成分分析经常用于减少数据集的维数，同时保留数据集当中对方差贡献最大的特征。这是通过保留低维主成分，忽略高维主成分做到的。这样低维成分往往能够保留住数据的最重要部分。但是，这也不是一定的，要视具体应用而定。由于主成分分析依赖所给数据，所以数据的准确性对分析结果影响很大。
+
+主成分分析由卡尔·皮尔逊于1901年发明[2]，用于分析数据及建立数理模型，在原理上与主轴定理相似。之后在1930年左右由哈罗德·霍特林独立发展并命名。依据应用领域的不同，在信号处理中它也叫做离散K-L 转换（discrete Karhunen–Loève transform (KLT)）。其方法主要是通过对协方差矩阵进行特征分解[3]，以得出数据的主成分（即特征向量）与它们的权值（即特征值[4]）。PCA是最简单的以特征量分析多元统计分布的方法。其结果可以理解为对原数据中的方差做出解释：哪一个方向上的数据值对方差的影响最大？换而言之，PCA提供了一种降低数据维度的有效办法；如果分析者在原数据中除掉最小的特征值所对应的成分，那么所得的低维度数据必定是最优化的（也即，这样降低维度必定是失去讯息最少的方法）。主成分分析在分析复杂数据时尤为有用，比如人脸识别。
+""
+PCA是最简单的以特征量分析多元统计分布的方法。通常，这种运算可以被看作是揭露数据的内部结构，从而更好地展现数据的变异度。如果一个多元数据集是用高维数据空间之坐标系来表示的，那么PCA能提供一幅较低维度的图像，相当于数据集在讯息量最多之角度上的一个投影。这样就可以利用少量的主成分让数据的维度降低了。
+
+PCA 跟因子分析密切相关。因子分析通常包含更多特定领域底层结构的假设，并且求解稍微不同矩阵的特征向量。
+
+PCA 也跟典型相关分析（CCA）有关。CCA定义的坐标系可以最佳地描述两个数据集之间的互协方差，而PCA定义了新的正交坐标系，能最佳地描述单个数据集当中的方差。
+
+在机器学习中，支持向量机 （台湾称支援向量機，英语：support vector machine，常简称为SVM，又名支持向量网络[1]）是在分类与回归分析中分析数据的监督式学习模型与相关的学习算法。给定一组训练实例，每个训练实例被标记为属于两个类别中的一个或另一个，SVM训练算法建立一个将新的实例分配给两个类别之一的模型，使其成为非概率二元线性分类器。SVM模型是将实例表示为空间中的点，这样映射就使得单独类别的实例被尽可能宽的明显的间隔分开。然后，将新的实例映射到同一空间，并基于它们落在间隔的哪一侧来预测所属类别。
+
+除了进行线性分类之外，SVM还可以使用所谓的核技巧有效地进行非线性分类，将其输入隐式映射到高维特征空间中。
+
+当数据未被标记时，不能进行监督式学习，需要用非监督式学习，它会尝试找出数据到簇的自然聚类，并将新数据映射到这些已形成的簇。将支持向量机改进的聚类算法被称为支持向量聚类[2]，当数据未被标记或者仅一些数据被标记时，支持向量聚类经常在工业应用中用作分类步骤的预处理。
+
+动机
+
+H1 不能把类别分开。H2 可以，但只有很小的间隔。H3 以最大间隔将它们分开。
+将数据进行分类是机器学习中的一项常见任务。 假设某些给定的数据点各自属于两个类之一，而目标是确定新数据点将在哪个类中。对于支持向量机来说，数据点被视为
+p
+{\displaystyle p} 维向量，而我们想知道是否可以用
+(
+p
+−
+1
+)
+{\displaystyle (p-1)} 维超平面来分开这些点。这就是所谓的线性分类器。可能有许多超平面可以把数据分类。最佳超平面的一个合理选择是以最大间隔把两个类分开的超平面。因此，我们要选择能够让到每边最近的数据点的距离最大化的超平面。如果存在这样的超平面，则称为最大间隔超平面，而其定义的线性分类器被称为最大间隔分类器，或者叫做最佳稳定性感知器。[来源请求]
+
+
+Q2: Cross-validation is considered as an effective way to select the most appropriate model for
+a given machine learning problem. Please answer the following problems.
+(a) Please discuss what model overfitting and model under-fitting mean in model selection.
+(b) How could you determine if a model is overfitting to the training samples?
+(c) Please provide three possible ways to address the overfitting issue if any. You might consider
+model complexity, dataset, and use of regularization terms.
+Q3: For binary classification problems, we could apply logistic regression to regress the target
+class label of a given sample, or directly find a separating hyperplane in the feature space.
+(a) Please explain the concept of max margin learning which can be used for finding
+separating hyper-planes. (1-2 sentences)
+(b) Please explain how slack variables function to enhance the robustness of a max-margin
+classifier. (1-2 sentences)
+(c) Please discuss the differences and similarities between logistic regression and support vector machine (2-4 sentences)
