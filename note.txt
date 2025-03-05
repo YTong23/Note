@@ -10,7 +10,7 @@ C2第二主成分：找一个C2，使得C2与C1的协方差（相关系数）为
 主成分分析由卡尔·皮尔逊于1901年发明[2]，用于分析数据及建立数理模型，在原理上与主轴定理相似。之后在1930年左右由哈罗德·霍特林独立发展并命名。依据应用领域的不同，在信号处理中它也叫做离散K-L 转换（discrete Karhunen–Loève transform (KLT)）。其方法主要是通过对协方差矩阵进行特征分解[3]，以得出数据的主成分（即特征向量）与它们的权值（即特征值[4]）。PCA是最简单的以特征量分析多元统计分布的方法。其结果可以理解为对原数据中的方差做出解释：哪一个方向上的数据值对方差的影响最大？换而言之，PCA提供了一种降低数据维度的有效办法；如果分析者在原数据中除掉最小的特征值所对应的成分，那么所得的低维度数据必定是最优化的（也即，这样降低维度必定是失去讯息最少的方法）。主成分分析在分析复杂数据时尤为有用，比如人脸识别。
 "
 从这里开始:
-
+你开始了吗
 
 "
 
@@ -43,13 +43,44 @@ p
 Q2: Cross-validation is considered as an effective way to select the most appropriate model for
 a given machine learning problem. Please answer the following problems.
 (a) Please discuss what model overfitting and model under-fitting mean in model selection.
+Overfitting occurs when a model learns not only the underlying pattern in the training data but also noise and irrelevant details.
+ This results in excellent performance on the training set but poor generalization to new, unseen data.
+Underfitting happens when a model is too simplistic and fails to capture the patterns in the training data,
+ leading to poor performance on both the training and test sets.
+
 (b) How could you determine if a model is overfitting to the training samples?
+A model is overfitting if:
+It has a high training accuracy but significantly lower test accuracy.
+The validation loss increases while the training loss continues to decrease.
+The model performs well on training data but fails on new or unseen data.
+
 (c) Please provide three possible ways to address the overfitting issue if any. You might consider
 model complexity, dataset, and use of regularization terms.
+Ways to Address Overfitting
+Reduce Model Complexity: Use a simpler model or reduce the number of parameters (e.g., pruning a deep neural network).
+Increase Dataset Size: Collect more training data or apply data augmentation techniques to improve generalization.
+Regularization: Apply L1 (Lasso) or L2 (Ridge) regularization to penalize large weights, which helps in controlling complexity.
+
+
+
 Q3: For binary classification problems, we could apply logistic regression to regress the target
 class label of a given sample, or directly find a separating hyperplane in the feature space.
 (a) Please explain the concept of max margin learning which can be used for finding
 separating hyper-planes. (1-2 sentences)
+Max margin learning aims to find a separating hyperplane that maximizes the distance (margin) between the closest data points (support vectors) of different classes,
+ensuring better generalization and robustness.
+
 (b) Please explain how slack variables function to enhance the robustness of a max-margin
 classifier. (1-2 sentences)
+Slack variables allow some training points to be misclassified or fall within the margin,
+helping the model handle noisy or non-linearly separable data while maintaining a good decision boundary.
 (c) Please discuss the differences and similarities between logistic regression and support vector machine (2-4 sentences)
+Similarities:
+Both are used for binary classification.
+Both find a decision boundary in the feature space.
+Both can incorporate regularization terms to prevent overfitting.
+
+Differences:
+Logistic Regression optimizes the log-likelihood function, producing a probability score.
+SVM focuses on maximizing the margin between classes and is less sensitive to outliers when using a hard margin.
+SVM can use kernel tricks to handle non-linearly separable data, whereas logistic regression assumes a linear decision boundary unless transformed features are used.
