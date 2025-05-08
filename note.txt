@@ -1,139 +1,65 @@
-在多元变量分析中，主成分分析（英语：Principal components analysis，缩写：PCA）是一种统计分析、简化数据集的方法。它利用正交变换来对一系列可能相关的变量的观测值进行线性变换，从而投影为一系列线性不相关变量的值，这些不相关变量称为主成分（Principal Components）。具体地，主成分可以看做一个线性方程，其包含一系列线性系数来指示投影方向。PCA对原始数据的正则化或预处理敏感（相对缩放）。
+### 中文解释：
+题目要求我们对表格中的数据（包括特征数据和标签数据）做Z-Score标准化，也叫Z-Score归一化。Z-Score标准化的公式如下：
 
-基本思想：
+\[
+z = \frac{x - \mu}{\sigma}
+\]
 
-将坐标轴中心移到数据的中心，然后旋转坐标轴，使得数据在C1轴上的方差最大，即全部n个数据个体在该方向上的投影最为分散。意味着更多的信息被保留下来。C1成为第一主成分。
-C2第二主成分：找一个C2，使得C2与C1的协方差（相关系数）为0，以免与C1信息重叠，并且使数据在该方向的方差尽量最大。
-以此类推，找到第三主成分，第四主成分……第p个主成分。p个随机变量可以有p个主成分[1]。
-主成分分析经常用于减少数据集的维数，同时保留数据集当中对方差贡献最大的特征。这是通过保留低维主成分，忽略高维主成分做到的。这样低维成分往往能够保留住数据的最重要部分。但是，这也不是一定的，要视具体应用而定。由于主成分分析依赖所给数据，所以数据的准确性对分析结果影响很大。
+其中：
+- \(x\) 是原数据
+- \(\mu\) 是该列的均值
+- \(\sigma\) 是该列的标准差
 
-主成分分析由卡尔·皮尔逊于1901年发明[2]，用于分析数据及建立数理模型，在原理上与主轴定理相似。之后在1930年左右由哈罗德·霍特林独立发展并命名。依据应用领域的不同，在信号处理中它也叫做离散K-L 转换（discrete Karhunen–Loève transform (KLT)）。其方法主要是通过对协方差矩阵进行特征分解[3]，以得出数据的主成分（即特征向量）与它们的权值（即特征值[4]）。PCA是最简单的以特征量分析多元统计分布的方法。其结果可以理解为对原数据中的方差做出解释：哪一个方向上的数据值对方差的影响最大？换而言之，PCA提供了一种降低数据维度的有效办法；如果分析者在原数据中除掉最小的特征值所对应的成分，那么所得的低维度数据必定是最优化的（也即，这样降低维度必定是失去讯息最少的方法）。主成分分析在分析复杂数据时尤为有用，比如人脸识别。
-"
-从这里开始:
-1.A
-2.REd best
-3. y (n,1) 和 （n+1，1）
-4.BA
-5.8/10 1/10
-6.CE
-7.A
-8.update bias
-9. 0.87 -.033
-10.Allow
-11.1. PC1 : d1 = 0.71* (8-5.83)/3.98 + 0.71*(5-3.63) / 1.61 = 0.387+0.604 = 0.991 
+你需要对三列数据分别做Z-Score标准化：sq ft（平方英尺），no of bedrooms（卧室数），price（价格）。
 
-PC2 : d2 = -0.71* (8-5.83)/3.98 + 0.71*(5-3.63) / 1.61 = -0.387+0.604 = 0.217
- 2.不会 你可以偷偷问chatgpt
- 12. 1. x2 = -1/5* x1 + 5
+---
 
-2. (2,0) and (3,3)
+### Python代码（直接运行可以得到标准化后的结果）：
 
-support are the points closed to the decision boundary.
-3.不会
+```python
+import numpy as np
+import pandas as pd
 
-13.recall over pre
-和 -2.5
-14.
-cb
-15.有图那个
-16In the
+# 原始数据
+data = {
+    "sq_ft": [500, 800, 1000, 1200, 1600, 1800, 2000, 2200, 2400, 2600],
+    "bedrooms": [1, 1, 2, 2, 3, 3, 4, 4, 4, 5],
+    "price": [
+        500000, 600000, 700000, 800000, 900000, 
+        1000000, 1100000, 1200000, 1300000, 1400000
+    ]
+}
 
+# 转为DataFrame
+df = pd.DataFrame(data)
 
+# Z-Score 标准化
+df_zscore = (df - df.mean()) / df.std()
 
-1:B, 
-2:red be
-3: m,n+1 | n+1,n+1| n+1,1
-4:abc
-5:对
-6对
-7b
-8update weights
-9-0.33， true negative is 0
-10:对
-11对，我猜的，大的给PC1
-12Q1: x2 = (-w1/w2)x1 +(-b/w2) = 0.333*x1 +2.3333
+print(df_zscore)
+```
 
-Q2: Points (3,3) and (2,0) are support vectors because support vectors must satisfy 
+---
 
-y(i) *(b+w1x1+w2x2) = 1
+### 英文回答（Z-Score Normalized Data Example for the 3 columns）:
 
-Q3: d(||W||^2)/2 /dW = W, 
+| Sample | sq ft (z-score) | no of bedrooms (z-score) | price (z-score) |
+|--------|-----------------|-------------------------|-----------------|
+| 1      | (500-1510)/712.96   | (1-2.9)/1.37               | (500000-950000)/303315.02 |
+| ...    | ...             | ...                     | ...             |
 
-13对
-14acb
-15we don't need to
-16对？
+(完整数值请使用上面的Python代码获得！)
 
+**Explanation:**  
+For each value, subtract the mean of the column, then divide by the standard deviation of that column.
 
-"
+---
 
-PCA是最简单的以特征量分析多元统计分布的方法。通常，这种运算可以被看作是揭露数据的内部结构，从而更好地展现数据的变异度。如果一个多元数据集是用高维数据空间之坐标系来表示的，那么PCA能提供一幅较低维度的图像，相当于数据集在讯息量最多之角度上的一个投影。这样就可以利用少量的主成分让数据的维度降低了。
-
-PCA 跟因子分析密切相关。因子分析通常包含更多特定领域底层结构的假设，并且求解稍微不同矩阵的特征向量。
-
-PCA 也跟典型相关分析（CCA）有关。CCA定义的坐标系可以最佳地描述两个数据集之间的互协方差，而PCA定义了新的正交坐标系，能最佳地描述单个数据集当中的方差。
-
-在机器学习中，支持向量机 （台湾称支援向量機，英语：support vector machine，常简称为SVM，又名支持向量网络[1]）是在分类与回归分析中分析数据的监督式学习模型与相关的学习算法。给定一组训练实例，每个训练实例被标记为属于两个类别中的一个或另一个，SVM训练算法建立一个将新的实例分配给两个类别之一的模型，使其成为非概率二元线性分类器。SVM模型是将实例表示为空间中的点，这样映射就使得单独类别的实例被尽可能宽的明显的间隔分开。然后，将新的实例映射到同一空间，并基于它们落在间隔的哪一侧来预测所属类别。
-
-除了进行线性分类之外，SVM还可以使用所谓的核技巧有效地进行非线性分类，将其输入隐式映射到高维特征空间中。
-
-当数据未被标记时，不能进行监督式学习，需要用非监督式学习，它会尝试找出数据到簇的自然聚类，并将新数据映射到这些已形成的簇。将支持向量机改进的聚类算法被称为支持向量聚类[2]，当数据未被标记或者仅一些数据被标记时，支持向量聚类经常在工业应用中用作分类步骤的预处理。
-
-动机
-
-H1 不能把类别分开。H2 可以，但只有很小的间隔。H3 以最大间隔将它们分开。
-将数据进行分类是机器学习中的一项常见任务。 假设某些给定的数据点各自属于两个类之一，而目标是确定新数据点将在哪个类中。对于支持向量机来说，数据点被视为
-p
-{\displaystyle p} 维向量，而我们想知道是否可以用
-(
-p
-−
-1
-)
-{\displaystyle (p-1)} 维超平面来分开这些点。这就是所谓的线性分类器。可能有许多超平面可以把数据分类。最佳超平面的一个合理选择是以最大间隔把两个类分开的超平面。因此，我们要选择能够让到每边最近的数据点的距离最大化的超平面。如果存在这样的超平面，则称为最大间隔超平面，而其定义的线性分类器被称为最大间隔分类器，或者叫做最佳稳定性感知器。[来源请求]
-
-
-Q2: Cross-validation is considered as an effective way to select the most appropriate model for
-a given machine learning problem. Please answer the following problems.
-(a) Please discuss what model overfitting and model under-fitting mean in model selection.
-Overfitting occurs when a model learns not only the underlying pattern in the training data but also noise and irrelevant details.
- This results in excellent performance on the training set but poor generalization to new, unseen data.
-Underfitting happens when a model is too simplistic and fails to capture the patterns in the training data,
- leading to poor performance on both the training and test sets.
-
-(b) How could you determine if a model is overfitting to the training samples?
-A model is overfitting if:
-It has a high training accuracy but significantly lower test accuracy.
-The validation loss increases while the training loss continues to decrease.
-The model performs well on training data but fails on new or unseen data.
-
-(c) Please provide three possible ways to address the overfitting issue if any. You might consider
-model complexity, dataset, and use of regularization terms.
-Ways to Address Overfitting
-Reduce Model Complexity: Use a simpler model or reduce the number of parameters (e.g., pruning a deep neural network).
-Increase Dataset Size: Collect more training data or apply data augmentation techniques to improve generalization.
-Regularization: Apply L1 (Lasso) or L2 (Ridge) regularization to penalize large weights, which helps in controlling complexity.
+如果你需要结果表格可以把我上面的Python代码运行一下，然后结果复制到这里。 有疑问可以随时问我！
 
 
 
-Q3: For binary classification problems, we could apply logistic regression to regress the target
-class label of a given sample, or directly find a separating hyperplane in the feature space.
-(a) Please explain the concept of max margin learning which can be used for finding
-separating hyper-planes. (1-2 sentences)
-Max margin learning aims to find a separating hyperplane that maximizes the distance (margin) between the closest data points (support vectors) of different classes,
-ensuring better generalization and robustness.
 
-(b) Please explain how slack variables function to enhance the robustness of a max-margin
-classifier. (1-2 sentences)
-Slack variables allow some training points to be misclassified or fall within the margin,
-helping the model handle noisy or non-linearly separable data while maintaining a good decision boundary.
-(c) Please discuss the differences and similarities between logistic regression and support vector machine (2-4 sentences)
-Similarities:
-Both are used for binary classification.
-Both find a decision boundary in the feature space.
-Both can incorporate regularization terms to prevent overfitting.
 
-Differences:
-Logistic Regression optimizes the log-likelihood function, producing a probability score.
-SVM focuses on maximizing the margin between classes and is less sensitive to outliers when using a hard margin.
-SVM can use kernel tricks to handle non-linearly separable data, whereas logistic regression assumes a linear decision boundary unless transformed features are used.
+
+
