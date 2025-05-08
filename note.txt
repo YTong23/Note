@@ -129,3 +129,45 @@ Since the dropout probability is 0.8, the retaining probability is 0.2. The mult
 
 
 
+### 中文解释
+
+1）题目问在这个例子中，编号为3 和 15 的样本，各自有哪几个神经元被置零（就是dropout掉了）？  
+2）每个样本，所有激活值的缩放因子（multiplication factor）是多少？
+
+我们要看 mask\[l\] 这个二进制矩阵。每一行是一个样本（第3行和第15行），每一列表示一个神经元，0 就是被“dropout”；1 就是保留。
+
+dropout概率p=0.8，所以只有20%的神经元被保留，为了保证期望一致，保留的要除以0.2，相当于乘以 1/0.2 = 5。
+
+---
+
+### 英文回答
+
+#### 1) For sample number 3 and 15, which neuron(s) are zeroed out?
+
+- **Sample number 3**: (The 3rd row, note Python is zero-indexed, so the 3rd sample is row index 2)  
+Row: `[0 0 0 0 0 0 0 0 0 0]`  
+All neurons (1 to 10) are zeroed out.
+
+- **Sample number 15**: (The 15th row, row index 14)  
+Row: `[0 0 0 0 0 0 0 0 1 0]`  
+Neurons 1 to 8 and 10 are zeroed out. Only neuron 9 is kept.
+
+**Answer:**  
+Sample 3: Neurons 1, 2, 3, 4, 5, 6, 7, 8, 9, and 10 are zeroed out.  
+Sample 15: Neurons 1, 2, 3, 4, 5, 6, 7, 8, and 10 are zeroed out.
+
+---
+
+#### 2) For each sample, what is the multiplication factor for all activations?
+
+Since the drop probability is 0.8, the keep probability is 0.2, so the scaling factor is **1/0.2 = 5**.
+
+**Answer:**  
+The multiplication factor for all activations is 5.
+
+
+
+
+
+
+
