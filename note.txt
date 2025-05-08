@@ -63,3 +63,69 @@ For each value, subtract the mean of the column, then divide by the standard dev
 
 
 
+这个图展示的是神经网络中某一层（第l层）的激活值 \(a^{[l]}\)。每一个圆表示神经元，右边的\(a^{[l]}_i\)表示第l层中第i个神经元的激活值。比如\(a^{[l]}_1\)表示第1个神经元的激活，\(a^{[l]}_2\)表示第2个神经元，以此类推到\(a^{[l]}_{10}\)。
+
+**解释：**
+- 这是神经网络常用的表达方式，用来表示每一层的神经元输出（激活值）。
+- 通常 \(a^{[l]}\) 是一列向量，每个分量代表一个神经元的激活。
+- l 表示第几层，i 表示这一层的第几个神经元。
+
+**英文回答：**
+
+This diagram shows the activations of neurons in the l-th layer of a neural network. Each orange circle represents a neuron, and \( a^{[l]}_i \) is the activation of the i-th neuron in layer l. For example, \( a^{[l]}_1 \) is the activation of the first neuron, \( a^{[l]}_2 \) is the activation of the second neuron, and so on up to \( a^{[l]}_{10} \).
+
+In short:  
+Each \( a^{[l]}_i \) represents the output (activation) of the i-th neuron in the l-th layer of the neural network.
+
+
+
+
+
+
+
+我们来看一下题目的要求：
+
+### 中文解释：
+1. 第一个问题是在这个例子中，第3个和第15个样本，对应哪几个神经元的激活被“归零”了（也就是被drop out了）。你需要找到mask的第3行和第15行，看那些位置是0，就是被归零的神经元序号（注意索引从0开始）。
+2. 第二个问题是：每个样本，所有激活的乘法因子是多少？意思是dropout后每个神经元要除以（1-p），p是drop概率。
+
+---
+
+### 英文作答：
+
+**1) In this example, for sample number 3 and 15, which neuron(s) are zeroed out?**
+
+- For sample number 3 (index 2):  
+  The mask row is: `[0 0 0 0 0 0 0 0 0 0]`.  
+  All neurons (indices 0 to 9) are zeroed out.
+
+- For sample number 15 (index 14):  
+  The mask row is: `[0 0 0 0 0 0 0 0 1 0]`.  
+  All neurons except neuron 8 are zeroed out.  
+  Zeroed neurons are: 0, 1, 2, 3, 4, 5, 6, 7, and 9.
+
+---
+
+**2) For each sample, what is the multiplication factor for all activations?**
+
+Since the dropout probability is 0.8, the retaining probability is 0.2. The multiplication factor for all activations (during training) is:  
+
+`1 / (1 - 0.8) = 1 / 0.2 = 5`
+
+---
+
+#### 总结答案：
+
+**Your Answer:**
+
+1. For sample number 3, all neurons (0-9) are zeroed out.  
+   For sample number 15, neurons 0, 1, 2, 3, 4, 5, 6, 7, and 9 are zeroed out.
+
+2. The multiplication factor for all activations for each sample is 5.
+
+
+
+
+
+
+
