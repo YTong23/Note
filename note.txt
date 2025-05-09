@@ -649,3 +649,140 @@ This will print: `(43, 43, 24)`
 
 
 
+我们分两步来看：
+
+## 第一步：卷积层（Conv Layer）
+- **输入：** 128 x 128 x 24
+- **卷积核数量：** 16 个
+- **卷积核大小：** 3 x 3, 输入通道24
+- **步幅（stride）：** 3
+- **填充（padding）：** 1
+
+卷积输出尺寸的公式为：
+
+\[
+\text{Output size} = \left\lfloor \frac{\text{Input size} - \text{Kernel size} + 2 \times \text{Padding}}{\text{Stride}} \right\rfloor + 1
+\]
+
+带入参数（对 height 和 width来说都是一样，因为输入是正方形）：
+
+\[
+\text{Output shape} = \left\lfloor \frac{128 - 3 + 2 \times 1}{3} \right\rfloor + 1 = \left\lfloor \frac{128 - 3 + 2}{3} \right\rfloor + 1 
+= \left\lfloor \frac{127}{3} \right\rfloor + 1
+= 42 + 1 = 43
+\]
+
+**输出深度(depth) = 卷积核数量 = 16**
+
+所以卷积层输出形状为：**43 x 43 x 16**
+
+---
+
+## 第二步：2x2 最大池化层（Max Pooling）
+- **池化核大小：** 2 x 2
+- **步幅（stride）：** 2
+- **无填充（padding=0）**
+
+池化输出计算方式：
+
+\[
+\text{Output size} = \left\lfloor \frac{\text{Input size} - \text{Pool size}}{\text{Stride}} \right\rfloor + 1
+\]
+
+\[
+\text{Output shape} = \left\lfloor \frac{43 - 2}{2} \right\rfloor + 1
+= \left\lfloor \frac{41}{2} \right\rfloor + 1
+= 20 + 1
+= 21
+\]
+
+通道数(depth)不变，还是16
+
+**池化后输出形状为：21 x 21 x 16**
+
+---
+
+### 结果（英文回答）：
+
+- **After the convolution layer, the shape is:** `43 x 43 x 16`
+- **After the max pooling layer, the shape is:** `21 x 21 x 16`
+
+---
+如需 python 代码计算，可以用如下方式：
+
+```python
+import math
+
+def conv2d_output_size(input_size, kernel_size, stride, padding):
+    return math.floor((input_size - kernel_size + 2 * padding)/stride) + 1
+
+def maxpool2d_output_size(input_size, pool_size, stride, padding):
+    return math.floor((input_size - pool_size + 2 * padding)/stride) + 1
+
+# Convolution
+conv_out = conv2d_output_size(128, 3, 3, 1)
+print(conv_out)  # 43
+
+# Max pooling
+pool_out = maxpool2d_output_size(conv_out, 2, 2, 0)
+print(pool_out)  # 21
+```
+
+
+
+
+
+
+
+
+### 中文解释
+题目的意思是给定一个卷积层，输入的形状是128x128x24，卷积核大小是3x3（有24个 filters），padding p=1，stride=3，问输出的形状。
+这是典型的卷积输出尺寸问题。
+
+输出尺寸的计算公式：
+$$
+\text{Output size} = \left\lfloor \frac{\text{Input size} - \text{Kernel size} + 2 \times \text{Padding}}{\text{Stride}} \right\rfloor + 1
+$$
+
+对于每个空间维度（高和宽）都要应用一次。
+- 输入高/宽 = 128,
+- 卷积核高/宽 = 3,
+- padding = 1,
+- stride = 3
+
+#### 代入公式（以高为例，宽同理）：
+$$
+\text{Output height/width} = \left\lfloor \frac{128 - 3 + 2 \times 1}{3} \right\rfloor + 1 = \left\lfloor \frac{128 - 3 + 2}{3} \right\rfloor + 1 = \left\lfloor \frac{127}{3} \right\rfloor + 1 = 42 + 1 = 43
+$$
+
+最后输出的通道数（filters数量）是24。
+
+### 英文答案
+The output shape is **43 x 43 x 24**.
+
+#### Calculation steps:
+- Output height = Output width = floor((128 - 3 + 2×1) / 3) + 1 = floor(127/3) + 1 = 42 + 1 = 43
+- Number of channels (filters): 24
+
+So, the output tensor shape is **43 x 43 x 24**.
+
+#### Python代码（可运行验证）：
+```python
+import math
+
+input_size = 128
+kernel_size = 3
+padding = 1
+stride = 3
+
+output_size = math.floor((input_size - kernel_size + 2 * padding) / stride) + 1
+print(output_size)  # 输出：43
+```
+输出应该是43。
+
+
+
+
+
+
+
